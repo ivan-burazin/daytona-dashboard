@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: daytona-dashboard-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DAYTONA_API_KEY
+        value: MWUyZDBjOWUtYzZlOC00Mzg2LWFkOWYtY2VhNzM0NzY3MDJi
+      - key: DAYTONA_SERVER_URL
+        value: https://api-a0534c9b-df6d-40f5-8657-792993bc24ec.try-eu.daytona.app
+      - key: FRONTEND_URL
+        value: https://daytona-dashboard.onrender.com
+    healthCheckPath: /workspace
+    autoDeploy: true

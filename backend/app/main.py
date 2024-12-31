@@ -6,19 +6,22 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = FastAPI()
+app = FastAPI(title="Daytona Dashboard API")
 
-# Configure CORS
+# Configure CORS for production
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://daytona-dashboard.onrender.com")
+PORT = int(os.getenv("PORT", "8080"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[FRONTEND_URL],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "DELETE"],
     allow_headers=["*"],
 )
 
 DAYTONA_API_KEY = os.getenv("DAYTONA_API_KEY")
-DAYTONA_SERVER_URL = os.getenv("DAYTONA_SERVER_URL", "http://localhost:3986")
+DAYTONA_SERVER_URL = os.getenv("DAYTONA_SERVER_URL", "https://api-a0534c9b-df6d-40f5-8657-792993bc24ec.try-eu.daytona.app")
 
 headers = {
     "Authorization": f"Bearer {DAYTONA_API_KEY}"
@@ -74,4 +77,4 @@ async def delete_api_key(key_name: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=PORT)
