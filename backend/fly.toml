@@ -1,0 +1,24 @@
+app = "backend-uqafyjpw"
+primary_region = "ams"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8080"
+  PYTHONPATH = "/app"
+  DAYTONA_API_KEY = "MWUyZDBjOWUtYzZlOC00Mzg2LWFkOWYtY2VhNzM0NzY3MDJi"
+  DAYTONA_SERVER_URL = "https://api-a0534c9b-df6d-40f5-8657-792993bc24ec.try-eu.daytona.app"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
