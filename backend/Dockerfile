@@ -6,9 +6,8 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
-RUN chmod +x start.sh
 
 ENV PORT=8080
 ENV PYTHONPATH=/app
 
-ENTRYPOINT ["./start.sh"]
+CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
