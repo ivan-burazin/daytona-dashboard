@@ -31,6 +31,3 @@ primary_region = "ams"
   [[services.ports]]
     port = 443
     handlers = ["tls", "http"]
-
-[processes]
-  app = "python -m uvicorn app.main:app --host 0.0.0.0 --port 8080"
