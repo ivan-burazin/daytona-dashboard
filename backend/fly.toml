@@ -6,6 +6,8 @@ primary_region = "ams"
 
 [env]
   PORT = "8080"
+  DAYTONA_API_KEY = "MWUyZDBjOWUtYzZlOC00Mzg2LWFkOWYtY2VhNzM0NzY3MDJi"
+  DAYTONA_SERVER_URL = "https://api-a0534c9b-df6d-40f5-8657-792993bc24ec.try-eu.daytona.app"
 
 [http_service]
   internal_port = 8080
@@ -13,12 +15,13 @@ primary_region = "ams"
   auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+
+[deploy]
+  strategy = "immediate"
 
 [[services]]
   protocol = "tcp"
   internal_port = 8080
-  processes = ["app"]
 
   [[services.ports]]
     port = 80
@@ -28,3 +31,6 @@ primary_region = "ams"
   [[services.ports]]
     port = 443
     handlers = ["tls", "http"]
+
+[processes]
+  app = "python -m uvicorn app.main:app --host 0.0.0.0 --port 8080"
